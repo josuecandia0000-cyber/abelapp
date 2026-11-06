@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import PasoCatalogo from '../components/ui/PasoCatalogo';
 import PasoUpload from '../components/ui/PasoUpload';
 import PasoDespiece from '../components/ui/PasoDespiece';
+import PasoCotizacion from '../components/ui/PasoCotizacion'; // <-- 1. Importamos el componente de cotización
 import { obtenerMateriales } from '@/services/materialService';
 
 export default function Home() {
@@ -66,10 +67,17 @@ export default function Home() {
         <PasoUpload onPlanoProcesado={handlePlanoProcesado} />
         
         {materialesExtraidos && (
-          <PasoDespiece 
-            datosExtraidos={materialesExtraidos} 
-            catalogoSupabase={catalogo} 
-          />
+          <>
+            <PasoDespiece 
+              datosExtraidos={materialesExtraidos} 
+              catalogoSupabase={catalogo} 
+            />
+            
+            {/* 2. Sección de Cotización habilitada al recibir los datos de la IA */}
+            <PasoCotizacion 
+              materialesIniciales={materialesExtraidos} 
+            />
+          </>
         )}
 
         <PasoCatalogo />
